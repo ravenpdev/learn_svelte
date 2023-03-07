@@ -5,14 +5,17 @@
   export let color = "default";
   export let variant = "text"; // text / filled / outlined
   export let shadow = false;
+  export let isLeftHovered = false;
 
   const dispatch = createEventDispatcher();
+
+  // console.log($$slots);
 
   function handleOnClick() {
     dispatch("click");
   }
 
-  let css = ["rounded tracking-wide font-light"];
+  let css = ["rounded tracking-wide font-light flex items-center gap-4"];
 
   switch (size) {
     case "small":
@@ -112,5 +115,18 @@
 </script>
 
 <button class={css.join(" ")} on:click={handleOnClick} class:shadow>
-  <slot>Fallback Value</slot>
+  {#if $$slots.leftContent}
+    <span
+      on:mouseenter={() => (isLeftHovered = true)}
+      on:mouseleave={() => (isLeftHovered = false)}
+    >
+      <slot name="leftContent" />
+    </span>
+  {/if}
+
+  <slot {isLeftHovered}>Fallback Value</slot>
+
+  {#if $$slots.rightContent}
+    <slot name="rightContent" />
+  {/if}
 </button>
