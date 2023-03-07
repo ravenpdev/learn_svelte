@@ -1,5 +1,6 @@
 <script>
-  import UsingSlotContainer from "./lib/containers/UsingSlotContainer.svelte";
+  // import PlayingWithScssContainer from "./lib/containers/PlayingWithSCSSContainer.svelte";
+  // import UsingSlotContainer from "./lib/containers/UsingSlotContainer.svelte";
 
   // import Counter from "./lib/components/Counter.svelte";
   // import Basic from "./lib/components/Basic.svelte";
@@ -8,7 +9,9 @@
 </script>
 
 <main>
-  <UsingSlotContainer />
+  <!-- <PlayingWithScssContainer /> -->
+
+  <!-- <UsingSlotContainer /> -->
 
   <!-- <ComponentWithPropsCountContainer /> -->
 

@@ -23,6 +23,7 @@
         color="primary"
         shadow
         on:click|once={() => alert("clicked!")}
+        disabled
       >
         <div slot="leftContent" class="w-5 h-5">
           {#if isLeftHovered}
