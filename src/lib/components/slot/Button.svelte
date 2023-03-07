@@ -4,6 +4,7 @@
   export let size = "default";
   export let color = "default";
   export let variant = "text"; // text / filled / outlined
+  export let shadow = false;
 
   const dispatch = createEventDispatcher();
 
@@ -15,13 +16,13 @@
 
   switch (size) {
     case "small":
-      css.push("text-sm py-1 px-1.5");
+      css.push("text-sm py-1 px-2");
       break;
     case "large":
-      css.push("text-lg py-1 px-5");
+      css.push("text-lg py-1 px-6");
       break;
     default:
-      css.push("text-base py-1 px-2.5");
+      css.push("text-base py-1 px-4");
   }
 
   if (variant === "filled") {
@@ -110,6 +111,6 @@
   }
 </script>
 
-<button class={css.join(" ")} on:click={handleOnClick}>
+<button class={css.join(" ")} on:click={handleOnClick} class:shadow>
   <slot>Fallback Value</slot>
 </button>
