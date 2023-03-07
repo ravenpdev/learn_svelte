@@ -15,7 +15,15 @@
     <h2>Variant Text</h2>
     <div class="flex gap-2">
       <!-- slot props -->
-      <Button let:isLeftHovered size="small" color="primary" shadow>
+      <!-- event forwarding -->
+      <!-- event modifiers -->
+      <Button
+        let:isLeftHovered
+        size="small"
+        color="primary"
+        shadow
+        on:click|once={() => alert("clicked!")}
+      >
         <div slot="leftContent" class="w-5 h-5">
           {#if isLeftHovered}
             <FaAddressCard />
