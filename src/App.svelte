@@ -1,4 +1,6 @@
 <script>
+  import TodoListContainer from "./lib/containers/TodoListContainer.svelte";
+
   // import PlayingWithScssContainer from "./lib/containers/PlayingWithSCSSContainer.svelte";
   // import UsingSlotContainer from "./lib/containers/UsingSlotContainer.svelte";
 
@@ -9,6 +11,8 @@
 </script>
 
 <main>
+  <TodoListContainer />
+
   <!-- <PlayingWithScssContainer /> -->
 
   <!-- <UsingSlotContainer /> -->
