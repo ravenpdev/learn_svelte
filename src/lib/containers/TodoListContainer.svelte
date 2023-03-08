@@ -4,6 +4,8 @@
 
   let todos = [];
 
+  $: console.log(todos);
+
   function handleAddTodo(event) {
     // event.preventDefault();
 
@@ -32,6 +34,30 @@
     todos = todos.filter((t) => t.id !== todo.id);
   }
 
+  function handleCompleteTodo(event) {
+    const { todo } = event.detail;
+
+    todos = todos.map((t) => {
+      if (t.id === todo.id) {
+        t.completed = !t.completed;
+      }
+
+      return t;
+    });
+  }
+
+  function handleUpdateTodo(event) {
+    const { id, name } = event.detail;
+
+    todos = todos.map((t) => {
+      if (t.id === id) {
+        t.name = name;
+      }
+
+      return t;
+    });
+  }
+
   function handleCustomEvent(event) {
     event.preventDefault();
 
@@ -44,6 +70,8 @@
     {todos}
     on:addTodo={handleAddTodo}
     on:deleteTodo={handleDeleteTodo}
+    on:completeTodo={handleCompleteTodo}
+    on:updateTodo={handleUpdateTodo}
     on:customEvent={handleCustomEvent}
   />
 </div>

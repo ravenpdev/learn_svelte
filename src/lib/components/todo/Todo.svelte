@@ -47,4 +47,4 @@
   </div>
 </form>
 
-<TodoList on:deleteTodo {todos} />
+<TodoList on:completeTodo on:deleteTodo on:updateTodo {todos} />

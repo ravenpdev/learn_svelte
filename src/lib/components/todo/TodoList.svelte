@@ -1,13 +1,17 @@
+<svelte:options immutable={true} />
+
 <script>
-  import { FaTrash } from "svelte-icons/fa";
+  import { FaPencilAlt, FaTrash } from "svelte-icons/fa";
   import { createEventDispatcher } from "svelte";
   import Button from "../Button.svelte";
 
-  export let todos = [];
+  export let todos;
+
+  let editingTodo = null;
 
   const dispatch = createEventDispatcher();
 
-  function handleDeleteTodo(todo) {
+  function handleRemoveTodo(todo) {
     const isNotCancelled = dispatch(
       "deleteTodo",
       {
@@ -15,6 +19,24 @@
       },
       { cancelable: true }
     );
+  }
+
+  function handleCompleteTodo(todo) {
+    const isNotCancelled = dispatch(
+      "completeTodo",
+      { todo },
+      { cancelable: true }
+    );
+  }
+
+  function handleSubmitUpdate(todo) {
+    const isNotCancelled = dispatch(
+      "updateTodo",
+      { id: todo.id, name: todo.name },
+      { cancelable: true }
+    );
+
+    editingTodo = null;
   }
 
   function handleCustomEvent() {
@@ -25,15 +47,39 @@
 <div>
   {#each todos as todo, index (todo.id)}
     {@const number = index + 1}
-    <div class="flex gap-2 items-center justify-between p-2 bg-zinc-200 mb-2">
-      <div class="flex items-center gap-2">
+    <div
+      class="flex gap-2 items-center justify-between py-3 px-4 bg-zinc-200 mb-2"
+    >
+      <div
+        class="flex items-center gap-2 h-10 w-full"
+        on:dblclick={() => (editingTodo = todo)}
+      >
         <span>{number}.</span>
-        <input type="checkbox" bind:checked={todo.completed} />
-        <p>{todo.name} - {todo.completed}</p>
+        <input
+          type="checkbox"
+          bind:checked={todo.completed}
+          on:input={() => handleCompleteTodo(todo)}
+        />
+
+        {#if editingTodo !== null && editingTodo.id === todo.id}
+          <form on:submit|preventDefault={handleSubmitUpdate} class="w-full">
+            <input
+              class="py-1 px-2 w-full"
+              type="text"
+              bind:value={todo.name}
+            />
+          </form>
+        {/if}
+        <p
+          class:invisible={editingTodo !== null && editingTodo.id === todo.id}
+          class:line-through={todo.completed}
+        >
+          {todo.name}
+        </p>
       </div>
 
       <Button
-        on:click={() => handleDeleteTodo(todo)}
+        on:click={() => handleRemoveTodo(todo)}
         class="w-4 h-4 text-error-500"><FaTrash /></Button
       >
     </div>
