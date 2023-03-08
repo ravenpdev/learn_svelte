@@ -1,5 +1,14 @@
 <script>
+  import { createEventDispatcher } from "svelte";
+  import Button from "../Button.svelte";
+
   export let todos = [];
+
+  const dispatch = createEventDispatcher();
+
+  function handleCustomEvent() {
+    dispatch("customEvent", {});
+  }
 </script>
 
 <div>
@@ -11,4 +20,8 @@
       <p>{todo.name} - {todo.completed}</p>
     </div>
   {/each}
+
+  <Button on:click={handleCustomEvent} variant="filled" color="secondary"
+    >Trigger custom event</Button
+  >
 </div>

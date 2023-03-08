@@ -15,12 +15,18 @@
   });
 
   function handleOnSubmit() {
-    dispatch("addTodo", {
-      name: input.trim(),
-    });
+    const isNotCancelled = dispatch(
+      "addTodo",
+      {
+        name: input.trim(),
+      },
+      { cancelable: true }
+    );
 
-    input = "";
-    inputRef.focus();
+    if (isNotCancelled) {
+      input = "";
+      inputRef.focus();
+    }
   }
 </script>
 
@@ -39,4 +45,4 @@
   </div>
 </form>
 
-<TodoList {todos} />
+<TodoList on:customEvent {todos} />

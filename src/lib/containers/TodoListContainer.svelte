@@ -16,6 +16,8 @@
   ];
 
   function handleAddTodo(event) {
+    // event.preventDefault();
+
     const { name } = event.detail;
 
     if (name === "") return;
@@ -28,8 +30,12 @@
 
     todos = [...todos, todo];
   }
+
+  function handleCustomEvent(event) {
+    alert("custom event was triggered!");
+  }
 </script>
 
 <div class="max-w-lg px-8 py-4">
-  <Todo {todos} on:addTodo={handleAddTodo} />
+  <Todo {todos} on:addTodo={handleAddTodo} on:customEvent={handleCustomEvent} />
 </div>
