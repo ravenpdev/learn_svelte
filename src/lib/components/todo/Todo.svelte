@@ -1,3 +1,5 @@
+<svelte:options immutable={true} />
+
 <script>
   import { createEventDispatcher, onMount } from "svelte";
   import Button from "../Button.svelte";
@@ -45,4 +47,4 @@
   </div>
 </form>
 
-<TodoList on:customEvent {todos} />
+<TodoList on:deleteTodo {todos} />

@@ -1,4 +1,5 @@
 <script>
+  // import Timer from "./lib/components/timer/Timer.svelte";
   import TodoListContainer from "./lib/containers/TodoListContainer.svelte";
 
   // import PlayingWithScssContainer from "./lib/containers/PlayingWithSCSSContainer.svelte";
@@ -11,6 +12,8 @@
 </script>
 
 <main>
+  <!-- <Timer /> -->
+
   <TodoListContainer />
 
   <!-- <PlayingWithScssContainer /> -->

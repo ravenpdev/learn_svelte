@@ -2,18 +2,7 @@
   import { v4 as uuid } from "uuid";
   import Todo from "../components/todo/Todo.svelte";
 
-  let todos = [
-    {
-      id: uuid(),
-      name: "Todo 1",
-      completed: false,
-    },
-    {
-      id: uuid(),
-      name: "Todo 1",
-      completed: false,
-    },
-  ];
+  let todos = [];
 
   function handleAddTodo(event) {
     // event.preventDefault();
@@ -29,13 +18,32 @@
     };
 
     todos = [...todos, todo];
+
+    // do not allow mutation
+    // todos.push(todo);
+    // todos = todos;
+  }
+
+  function handleDeleteTodo(event) {
+    // event.preventDefault();
+
+    const { todo } = event.detail;
+
+    todos = todos.filter((t) => t.id !== todo.id);
   }
 
   function handleCustomEvent(event) {
+    event.preventDefault();
+
     alert("custom event was triggered!");
   }
 </script>
 
 <div class="max-w-lg px-8 py-4">
-  <Todo {todos} on:addTodo={handleAddTodo} on:customEvent={handleCustomEvent} />
+  <Todo
+    {todos}
+    on:addTodo={handleAddTodo}
+    on:deleteTodo={handleDeleteTodo}
+    on:customEvent={handleCustomEvent}
+  />
 </div>
