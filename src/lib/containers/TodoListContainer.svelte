@@ -4,10 +4,14 @@
 
   let todos = [];
 
+  let todoComponent;
+
   $: console.log(todos);
 
   function handleAddTodo(event) {
     // event.preventDefault();
+
+    console.log(todoComponent.readOnly);
 
     const { name } = event.detail;
 
@@ -20,6 +24,9 @@
     };
 
     todos = [...todos, todo];
+
+    todoComponent.clearInput();
+    todoComponent.focusInput();
 
     // do not allow mutation
     // todos.push(todo);
@@ -69,6 +76,7 @@
 <div class="max-w-lg px-8 py-4">
   <Todo
     {todos}
+    bind:this={todoComponent}
     on:addTodo={handleAddTodo}
     on:deleteTodo={handleDeleteTodo}
     on:completeTodo={handleCompleteTodo}

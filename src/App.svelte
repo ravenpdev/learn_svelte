@@ -1,4 +1,6 @@
 <script>
+  // import Dropdown from "./lib/components/Dropdown.svelte";
+
   // import Timer from "./lib/components/timer/Timer.svelte";
   import TodoListContainer from "./lib/containers/TodoListContainer.svelte";
 
@@ -13,6 +15,7 @@
 
 <main>
   <!-- <Timer /> -->
+  <!-- <Dropdown /> -->
 
   <TodoListContainer />
 

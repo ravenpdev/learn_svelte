@@ -8,6 +8,7 @@
   const dispatch = createEventDispatcher();
 
   export let todos;
+  export const readOnly = "read only";
 
   let input = "";
   let inputRef;
@@ -15,6 +16,14 @@
   onMount(() => {
     inputRef.focus();
   });
+
+  export function clearInput() {
+    input = "";
+  }
+
+  export function focusInput() {
+    inputRef.focus();
+  }
 
   function handleOnSubmit() {
     const isNotCancelled = dispatch(
@@ -25,10 +34,10 @@
       { cancelable: true }
     );
 
-    if (isNotCancelled) {
-      input = "";
-      inputRef.focus();
-    }
+    // if (isNotCancelled) {
+    //   clearInput();
+    //   focusInput();
+    // }
   }
 </script>
 
