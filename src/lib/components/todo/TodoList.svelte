@@ -1,24 +1,27 @@
 <svelte:options immutable={true} />
 
 <script>
-  import { FaPencilAlt, FaTrash } from "svelte-icons/fa";
+  import { FaPen, FaPencilAlt, FaTimes, FaTrash } from "svelte-icons/fa";
   import { createEventDispatcher } from "svelte";
   import Button from "../Button.svelte";
 
   export let todos;
 
-  let editingTodo = null;
+  let todoToEdit = null;
+  let nameInputRef;
 
   const dispatch = createEventDispatcher();
 
   function handleRemoveTodo(todo) {
-    const isNotCancelled = dispatch(
-      "deleteTodo",
-      {
-        todo,
-      },
-      { cancelable: true }
-    );
+    if (confirm("Are you sure?")) {
+      const isNotCancelled = dispatch(
+        "deleteTodo",
+        {
+          todo,
+        },
+        { cancelable: true }
+      );
+    }
   }
 
   function handleCompleteTodo(todo) {
@@ -36,7 +39,17 @@
       { cancelable: true }
     );
 
-    editingTodo = null;
+    todoToEdit = null;
+  }
+
+  function handleEditTodo(todo, inputRef) {
+    todoToEdit = todo;
+
+    if (!nameInputRef) return;
+  }
+
+  function focusInput(el) {
+    el.focus();
   }
 
   function handleCustomEvent() {
@@ -52,7 +65,7 @@
     >
       <div
         class="flex items-center gap-2 h-10 w-full"
-        on:dblclick={() => (editingTodo = todo)}
+        on:dblclick={() => handleEditTodo(todo)}
       >
         <span>{number}.</span>
         <input
@@ -61,27 +74,43 @@
           on:input={() => handleCompleteTodo(todo)}
         />
 
-        {#if editingTodo !== null && editingTodo.id === todo.id}
+        {#if todoToEdit !== null && todoToEdit.id === todo.id}
           <form on:submit|preventDefault={handleSubmitUpdate} class="w-full">
             <input
               class="py-1 px-2 w-full"
               type="text"
               bind:value={todo.name}
+              use:focusInput
             />
           </form>
         {/if}
         <p
-          class:invisible={editingTodo !== null && editingTodo.id === todo.id}
+          class:invisible={todoToEdit !== null && todoToEdit.id === todo.id}
           class:line-through={todo.completed}
         >
           {todo.name}
         </p>
       </div>
 
-      <Button
-        on:click={() => handleRemoveTodo(todo)}
-        class="w-4 h-4 text-error-500"><FaTrash /></Button
-      >
+      <div class="flex gap-4">
+        {#if todoToEdit !== null && todoToEdit.id === todo.id}
+          <Button
+            on:click={() => (todoToEdit = null)}
+            class="w-4 h-4 text-error-500"><FaTimes /></Button
+          >
+          <!-- content here -->
+        {:else}
+          <Button
+            on:click={() => handleEditTodo(todo)}
+            class="w-4 h-4 text-info-500"><FaPen /></Button
+          >
+        {/if}
+
+        <Button
+          on:click={() => handleRemoveTodo(todo)}
+          class="w-4 h-4 text-error-500"><FaTrash /></Button
+        >
+      </div>
     </div>
   {/each}
 

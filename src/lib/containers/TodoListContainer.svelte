@@ -39,7 +39,8 @@
 
     todos = todos.map((t) => {
       if (t.id === todo.id) {
-        t.completed = !t.completed;
+        // t.completed = !t.completed;
+        return { ...t, completed: !t.completed };
       }
 
       return t;
