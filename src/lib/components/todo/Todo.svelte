@@ -1,16 +1,16 @@
 <svelte:options immutable={true} />
 
 <script>
-  import { createEventDispatcher, onMount } from "svelte";
-  import Button from "../Button.svelte";
-  import TodoList from "./TodoList.svelte";
+  import { createEventDispatcher, onMount } from 'svelte';
+  import Button from '../Button.svelte';
+  import TodoList from './TodoList.svelte';
 
   const dispatch = createEventDispatcher();
 
   export let todos;
-  export const readOnly = "read only";
+  export const readOnly = 'read only';
 
-  let input = "";
+  let input = '';
   let inputRef;
 
   onMount(() => {
@@ -18,7 +18,7 @@
   });
 
   export function clearInput() {
-    input = "";
+    input = '';
   }
 
   export function focusInput() {
@@ -27,9 +27,9 @@
 
   function handleOnSubmit() {
     const isNotCancelled = dispatch(
-      "addTodo",
+      'addTodo',
       {
-        name: input.trim(),
+        name: input.trim()
       },
       { cancelable: true }
     );

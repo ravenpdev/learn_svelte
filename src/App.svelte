@@ -1,8 +1,10 @@
 <script>
+  import StorePlayground from './lib/containers/StorePlayground.svelte';
+
   // import Dropdown from "./lib/components/Dropdown.svelte";
 
   // import Timer from "./lib/components/timer/Timer.svelte";
-  import TodoListContainer from "./lib/containers/TodoListContainer.svelte";
+  // import TodoListContainer from "./lib/containers/TodoListContainer.svelte";
 
   // import PlayingWithScssContainer from "./lib/containers/PlayingWithSCSSContainer.svelte";
   // import UsingSlotContainer from "./lib/containers/UsingSlotContainer.svelte";
@@ -14,10 +16,11 @@
 </script>
 
 <main>
+  <StorePlayground />
   <!-- <Timer /> -->
   <!-- <Dropdown /> -->
 
-  <TodoListContainer />
+  <!-- <TodoListContainer /> -->
 
   <!-- <PlayingWithScssContainer /> -->
 

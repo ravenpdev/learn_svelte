@@ -1,12 +1,14 @@
 <script>
-  import { v4 as uuid } from "uuid";
-  import Todo from "../components/todo/Todo.svelte";
+  import { v4 as uuid } from 'uuid';
+  import Todo from '../components/todo/Todo.svelte';
 
   let todos = [];
 
   let todoComponent;
 
-  $: console.log(todos);
+  let showList = true;
+
+  // $: console.log(todos);
 
   function handleAddTodo(event) {
     // event.preventDefault();
@@ -15,12 +17,12 @@
 
     const { name } = event.detail;
 
-    if (name === "") return;
+    if (name === '') return;
 
     const todo = {
       id: uuid(),
       name,
-      completed: false,
+      completed: false
     };
 
     todos = [...todos, todo];
@@ -69,18 +71,25 @@
   function handleCustomEvent(event) {
     event.preventDefault();
 
-    alert("custom event was triggered!");
+    alert('custom event was triggered!');
   }
 </script>
 
 <div class="max-w-lg px-8 py-4">
-  <Todo
-    {todos}
-    bind:this={todoComponent}
-    on:addTodo={handleAddTodo}
-    on:deleteTodo={handleDeleteTodo}
-    on:completeTodo={handleCompleteTodo}
-    on:updateTodo={handleUpdateTodo}
-    on:customEvent={handleCustomEvent}
-  />
+  <label>
+    {showList ? 'Hide' : 'Show'}
+    <input type="checkbox" bind:checked={showList} />
+  </label>
+
+  {#if showList}
+    <Todo
+      {todos}
+      bind:this={todoComponent}
+      on:addTodo={handleAddTodo}
+      on:deleteTodo={handleDeleteTodo}
+      on:completeTodo={handleCompleteTodo}
+      on:updateTodo={handleUpdateTodo}
+      on:customEvent={handleCustomEvent}
+    />
+  {/if}
 </div>
