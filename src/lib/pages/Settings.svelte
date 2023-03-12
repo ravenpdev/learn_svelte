@@ -1,15 +1,7 @@
 <script>
-  import { onDestroy } from 'svelte';
   import { settings } from '../stores/settings';
 
-  let colorScheme;
-
-  const unsubscribe = settings.subscribe((settings) => {
-    console.log('Settings subscribe');
-    colorScheme = settings.colorScheme;
-  });
-
-  onDestroy(unsubscribe);
+  let colorScheme = $settings.colorScheme;
 </script>
 
 <h1>Settings</h1>
