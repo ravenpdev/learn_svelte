@@ -42,7 +42,14 @@
 <svelte:window on:hashchange={onRouteChange} />
 
 <div>
-  {JSON.stringify($location)}
+  {#if $location && !$location.error}
+    {JSON.stringify($location)}
+    <p>{$location.latitude} - {$location.longitude}</p>
+  {/if}
+
+  {#if $location && $location.error}
+    <p>{$location.error.code} - {$location.error.message}</p>
+  {/if}
   <nav>
     <a href="#/">Home</a>
     <a href="#/settings">Settings</a>
