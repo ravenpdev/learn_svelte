@@ -1,14 +1,12 @@
 <script>
-  import { onDestroy, onMount } from 'svelte';
+  import { FaMoon, FaSun } from 'svelte-icons/fa/';
+  import { onMount } from 'svelte';
   import { settings } from '../stores/settings';
   import Home from '../pages/Home.svelte';
   import Settings from '../pages/Settings.svelte';
+  import location from '../stores/locations';
 
   let page;
-
-  // const unsubscribe = settings.subscribe((value) => {
-  //   settingsValue = value;
-  // });
 
   function onRouteChange() {
     // console.log(window.location.hash.slice(1));
@@ -27,15 +25,41 @@
     onRouteChange();
   });
 
+  $: {
+    if (
+      $settings.colorScheme === 'dark' &&
+      window.matchMedia('(prefers-color-scheme: dark)').matches
+    ) {
+      document.documentElement.classList.add('dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+    }
+  }
+
   // onDestroy(unsubscribe);
 </script>
 
 <svelte:window on:hashchange={onRouteChange} />
 
 <div>
+  {JSON.stringify($location)}
   <nav>
     <a href="#/">Home</a>
     <a href="#/settings">Settings</a>
+
+    {#if $settings.colorScheme === 'light'}
+      <button on:click={settings.toggleColorScheme}>
+        <div class="w-4 h-4">
+          <FaMoon />
+        </div>
+      </button>
+    {:else}
+      <button on:click={settings.toggleColorScheme}>
+        <div class="w-4 h-4">
+          <FaSun />
+        </div>
+      </button>
+    {/if}
   </nav>
 
   <h1>Settings {JSON.stringify($settings)}</h1>

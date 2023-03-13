@@ -1,20 +1,15 @@
 <script>
   import { settings } from '../stores/settings';
-
-  let colorScheme = $settings.colorScheme;
 </script>
 
 <h1>Settings</h1>
-
-<h1>{colorScheme}</h1>
 
 <label>
   Dark
   <input
     type="radio"
     name="colorScheme"
-    bind:group={colorScheme}
-    on:input={settings.toggleColorScheme}
+    bind:group={$settings.colorScheme}
     value="dark"
   />
 </label>
@@ -25,9 +20,8 @@
     type="radio"
     name="colorScheme"
     value="light"
-    bind:group={colorScheme}
-    on:input={settings.toggleColorScheme}
+    bind:group={$settings.colorScheme}
   />
 </label>
 
-<button on:click={settings.reset}>Reset</button>
+<button on:click={settings.toggleColorScheme}>Toggle Colorscheme</button>

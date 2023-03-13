@@ -15,7 +15,7 @@
   // import ComponentWithPropsCountContainer from "./lib/containers/ComponentWithPropsCountContainer.svelte";
 </script>
 
-<main>
+<main class="dark:bg-zinc-900 dark:text-zinc-50 bg-zinc-100 text-zinc-700">
   <StorePlayground />
   <!-- <Timer /> -->
   <!-- <Dropdown /> -->
