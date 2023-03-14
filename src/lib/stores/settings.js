@@ -7,7 +7,7 @@ function createSettings() {
     fontSize: 16
   };
 
-  const { subscribe, set, update } = writable(state);
+  const { subscribe, set, update } = writable({ ...state });
 
   return {
     subscribe,
@@ -16,11 +16,16 @@ function createSettings() {
         state.colorScheme = state.colorScheme === 'dark' ? 'light' : 'dark';
         return state;
       }),
-    reset: () => set({ colorScheme: 'dark', language: 'en', fontSize: 16 })
+    changeLanguage: (key, value) => {
+      update((state) => {
+        return { ...state, [key]: value };
+      });
+    },
+    reset: () => set({ ...state })
   };
 }
 
-export const settings = createSettings();
+export default createSettings();
 
 // const callback = writable(
 //   { colorScheme: 'light', language: 'en', fontSize: 12 },

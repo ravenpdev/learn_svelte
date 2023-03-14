@@ -1,6 +1,6 @@
 import { readable } from 'svelte/store';
 
-const location = readable(null, (set) => {
+const locations = readable(null, (set) => {
   let navigatorId;
 
   if (navigator.geolocation && navigator.geolocation.watchPosition) {
@@ -36,4 +36,4 @@ const location = readable(null, (set) => {
   };
 });
 
-export default location;
+export default locations;
